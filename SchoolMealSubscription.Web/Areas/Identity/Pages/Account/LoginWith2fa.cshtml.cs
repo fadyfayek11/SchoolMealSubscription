@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace BookStoreWeb.Areas.Identity.Pages.Account
+namespace SchoolMealSubscription.Web.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {

@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BookStoreWeb.Areas.Identity.Pages.Account
+namespace SchoolMealSubscription.Web.Areas.Identity.Pages.Account
 {
     /// <summary>
     ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

@@ -2,59 +2,42 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SchoolMealSubscription.Models.Entities;
 
 namespace SchoolMealSubscription.DataAccess.Data;
 
-public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-
+        ChangeTracker.LazyLoadingEnabled = true;
     }
+  
+    public new DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<Parent> Parents { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Grade> Grades { get; set; }
+    public DbSet<School> Schools { get; set; }
+    public DbSet<FoodType> FoodTypes { get; set; }
+    public DbSet<StudentFoodPreference> StudentFoodPreferences { get; set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
 
-    public DbSet<Category> Categories { get; set; }
-    public DbSet<Author> Authors { get; set; }
-    public DbSet<Book> Books { get; set; }
-    public DbSet<ApplicationUser> Users { get; set; }
-    public DbSet<Club> Clubs { get; set; }
-    public DbSet<UserClub> UserClubs { get; set; }
-    public DbSet<BookComments> Comments { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-
-        // User-Club many-to-many relationship
-        modelBuilder.Entity<UserClub>()
-            .HasKey(uc => new { uc.UserId, uc.ClubId }); // Composite key
-
-        modelBuilder.Entity<BookComments>()
-            .HasOne(bc => bc.Book)
-            .WithMany(b => b.BookComments)
-            .HasForeignKey(bc => bc.BookId);
-
-        modelBuilder.Entity<Club>()
-            .HasMany(c => c.Users)
-            .WithMany(u => u.Clubs)
-            .UsingEntity(j => j.ToTable("ClubUsers"));
-
-        // One-to-Many relationship between Club and Owner (ApplicationUser)
-        modelBuilder.Entity<Club>()
-            .HasOne(c => c.Owner)
-            .WithMany(u => u.OwnedClubs)
-            .HasForeignKey(c => c.OwnerId);
-
-        // Configure User-BookComments relationship
-        modelBuilder.Entity<BookComments>()
-            .HasOne(bc => bc.User)
-            .WithMany()
-            .HasForeignKey(bc => bc.UserId);
+        SeedData(modelBuilder);
         modelBuilder.Entity<IdentityRole>().HasData(
             new IdentityRole
             {
                 Id = "1",
                 Name = "Admin",
                 NormalizedName = "ADMIN"
+            },
+            new IdentityRole
+            {
+                Id = "2",
+                Name = "Parent",
+                NormalizedName = "PARENT"
             }
         );
         var hasher = new PasswordHasher<ApplicationUser>();
@@ -62,10 +45,10 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 new ApplicationUser
                 {
                     Id = "1",
-                    UserName = "admin@Mostakel.com",
-                    NormalizedUserName = "ADMIN@Mostakel.COM",
-                    Email = "admin@Mostakel.com",
-                    NormalizedEmail = "ADMIN@Mostakel.COM",
+                    UserName = "admin@schoool.com",
+                    NormalizedUserName = "ADMIN@SCHOOL.COM",
+                    Email = "admin@schoool.com",
+                    NormalizedEmail = "ADMIN@SCHOOL.COM",
                     EmailConfirmed = true,
                     IsAdmin = true,
                     PasswordHash = hasher.HashPassword(null, "P@ssword123")
@@ -76,5 +59,36 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 RoleId = "1",
                 UserId = "1"
             });
+    }
+
+
+    private void SeedData(ModelBuilder modelBuilder)
+    {
+        // Seed Grades
+        modelBuilder.Entity<Grade>().HasData(
+            new Grade { GradeId = 1, Name = "الصف الأول" },
+            new Grade { GradeId = 2, Name = "الصف الثاني" },
+            new Grade { GradeId = 3, Name = "الصف الثالث" },
+            new Grade { GradeId = 4, Name = "الصف الرابع" },
+            new Grade { GradeId = 5, Name = "الصف الخامس" },
+            new Grade { GradeId = 6, Name = "الصف السادس" }
+        );
+
+        // Seed Schools
+        modelBuilder.Entity<School>().HasData(
+            new School { SchoolId = 1, Name = "مدرسة الأمل" },
+            new School { SchoolId = 2, Name = "مدرسة المستقبل" },
+            new School { SchoolId = 3, Name = "مدرسة النور" },
+            new School { SchoolId = 4, Name = "مدرسة الفرسان" }
+        );
+
+        // Seed FoodTypes
+        modelBuilder.Entity<FoodType>().HasData(
+            new FoodType { FoodTypeId = 1, Name = "سلطات" },
+            new FoodType { FoodTypeId = 2, Name = "فواكه" },
+            new FoodType { FoodTypeId = 3, Name = "منتجات الألبان" },
+            new FoodType { FoodTypeId = 4, Name = "حبوب كاملة" },
+            new FoodType { FoodTypeId = 5, Name = "عصائر طبيعية" }
+        );
     }
 }

@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Parents\Controllers\" />
     <Folder Include="wwwroot\images\book\" />
   </ItemGroup>
 

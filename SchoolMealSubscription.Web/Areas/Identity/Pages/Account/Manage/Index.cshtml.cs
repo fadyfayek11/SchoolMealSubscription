@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BookStoreWeb.Areas.Identity.Pages.Account.Manage
+namespace SchoolMealSubscription.Web.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
