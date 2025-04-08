@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Book>
+@section Style
+{
+    <style>
+        .developers {
+            background-color: #d9f3ff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h2,h5 {
+            color: #2b6ba6;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        table, td {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        footer {
+            background-color: #2b6ba6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+            footer a {
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+}
+<section class="hero-section text-center d-flex align-items-center" style="background-image: url('/images/post-img1.jpg');">
+    <div>
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="display-4">Discover a World of Books</h1>
+            <p class="lead">Join our book club, create your own, or browse our latest collection!</p>
+            <a href="#" class="btn btn-primary mx-2">Join Book Club</a>
+            <a href="#" class="btn btn-secondary mx-2">Create a Book Club</a>
+            <a href="#" class="btn btn-success mx-2">Browse Books</a>
+        </div>
+    </div>
+</section>
+
+<!-- Who We Are Section -->
+<section class="about-us-section text-center py-5" data-aos="fade-right">
+    <div class="container">
+        <h2>Who We Are</h2>
+        <p>We are a passionate community of book lovers dedicated to sharing and discovering great books. Whether you want to join an existing book club, create your own, or simply enjoy reading, we have something for everyone.</p>
+    </div>
+</section>
+<section id="client-holder" data-aos="fade-up">
+    <div class="container">
+        <div class="row">
+            <div class="inner-content">
+                <div class="logo-wrap">
+                    <div class="grid">
+                        <a href="#"><img src="images/client-image1.png" alt="client"></a>
+                        <a href="#"><img src="images/client-image2.png" alt="client"></a>
+                        <a href="#"><img src="images/client-image3.png" alt="client"></a>
+                        <a href="#"><img src="images/client-image4.png" alt="client"></a>
+                        <a href="#"><img src="images/client-image5.png" alt="client"></a>
+                    </div>
+                </div><!--image-holder-->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Books Section with Carousel -->
+@if (Model.Count() != 0)
+{
+    <section class="latest-books-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Latest Books</h2>
+            <div id="booksCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Count(); i += 3)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : "")" data-aos="zoom-in">
+                            <div class="row justify-content-center">
+                                @for (int j = i; j < i + 3 && j < Model.Count(); j++)
+                                {
+                                    var book = Model.ElementAt(j);
+                                    <div class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card">
+                                            <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@book.Title</h5>
+                                                <p class="card-text">@Html.Raw(book.Description.Length > 200 ? book.Description.Substring(0, 200) + "..." : book.Description)</p>
+                                                <p class="card-text">@book.Price.ToString("C")</p>
+                                                <a asp-action="Details" asp-route-bookId="@book.Id" class="btn btn-primary">Buy Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#booksCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#booksCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+}
+<div class="developers">
+    <i class="fa-solid fa-people-group" style="font-size:35px"></i>
+    <h2>The website</h2>
+    <h5>developed by</h5>
+    <table>
+        <tr>
+            <td>7501 TC IR3 Renad Aug 2024</td>
+            <td>443208092@tvtc.edu.sa</td>
+        </tr>
+        <tr>
+            <td>7481 CT IR3 Athari Alqahtani Aug 2024</td>
+            <td>443231060@tvtc.edu.sa</td>
+        </tr>
+        <tr>
+            <td>7461 CT IR3 Danah Alamri Aug 2024</td>
+            <td>443230999@tvtc.edu.sa</td>
+        </tr>
+        <tr>
+            <td>7480 CT IR3 Rana Al-Mutlaq Aug 2024</td>
+            <td>443220041@tvtc.edu.sa</td>
+        </tr>
+        <tr>
+            <td>7483 CT IR3 Fatimah Al-Thuwijeb Aug 2024</td>
+            <td>443208143@tvtc.edu.sa</td>
+        </tr>
+    </table>
+</div>

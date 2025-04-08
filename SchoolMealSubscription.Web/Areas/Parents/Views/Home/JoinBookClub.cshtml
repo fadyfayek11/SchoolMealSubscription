@@ -1,0 +1,46 @@
+﻿@model Club
+
+@{
+    ViewData["Title"] = "JoinBookClub";
+}
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient text-light py-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3 class="text-white text-uppercase">@Model.Book?.Title</h3>
+                <p class="text-white-50 fw-semibold mb-0">by <span>@Model.Book?.Author</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="py-3">
+            <div class="row">
+                <div class="col-6 col-md-2 offset-lg-1 pb-1">
+                    <a asp-action="Details" asp-route-bookId="@Model.BookId" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                        <small>Back to details</small>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
+                    <img src="@Model.Book?.ImageUrl" width="100%" class="rounded" />
+                </div>
+                <div class="col-12 col-lg-6 offset-lg-1">
+
+                    <div style="font-weight: bold;" class="col-12 col-md-6 pb-2">
+                        Owner Name:
+                    </div>
+                    <h1 class="badge" style="font-size:20px">@Model.Owner?.UserName</h1>
+
+                    
+                    <p class="pt-5" style="font-weight: bold;">Here is your BookClub URL:</p>
+                    <a id="bookClubDetailsUrl" href="@Model.ClubUrl" target="_blank" class="btn btn-info w-100 py-2 text-uppercase fw-semibold">
+                        Visit The BookClub 
+                    </a> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

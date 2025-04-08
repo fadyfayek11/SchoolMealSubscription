@@ -1,0 +1,220 @@
+﻿@model Book
+
+<form class="pb-5">
+    <input id="BookId" asp-for="@Model.Id" hidden/>
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient text-light py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-white text-uppercase">@Model.Title</h3>
+                    <p class="text-white-50 fw-semibold mb-0">by <span>@Model.Author</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="py-3">
+                <div class="row">
+                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
+                        <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                            <small>Back to home</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
+                        <img src="@Model.ImageUrl" width="100%" class="rounded" />
+                    </div>
+                    <div class="col-12 col-lg-6 offset-lg-1">
+
+                        <div class="col-12 col-md-6 pb-4">Category: 
+                            <span class="badge">@Model.Category?.Name</span>
+                        </div>
+                        <div class="row ps-2">
+                            <h6 class="text-dark text-opacity-50 ">ISBN : @Model.ISBN</h6>
+                        </div>
+                        
+                        <div class="row pl-2 my-3">
+                            <p class="text-secondary lh-sm">@Html.Raw(Model.Description)</p>
+                        </div>
+                        <div class="row ps-2">
+                            <h6 class="text-dark  pb-2">
+                                Price:
+                                <span>
+                                    @Model.Price.ToString("c")
+                                </span>
+                            </h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-md-3 pb-1">
+                                <a class="btn btn-primary bg-gradient  w-100 py-2 text-uppercase fw-semibold">
+                                    Buy The Book
+                                </a>
+                            </div>
+                            <div class="col-3 col-md-3 pb-1">
+                                @if (@Model.ClubId is 0 or null)
+                                {
+                                    <a id="createBookClubBtn" class="btn btn-success bg-gradient w-100 py-2 text-uppercase fw-semibold" data-bs-toggle="modal" data-bs-target="#createBookClubModal">
+                                        Create a BookClub
+                                    </a>
+                                    <a id="bookClubDetailsBtn" style="display: none;" class="btn btn-success bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                                        Join BookClub
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="JoinBookClub" asp-route-clubId="@Model.ClubId" class="btn btn-success bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                                        Join BookClub
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Comments Section -->
+                <div class="container mt-5">
+                    <h3>Comments</h3>
+    
+                    <!-- Comment Form -->
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Add Your Comment</label>
+                            <textarea id="userComment" class="form-control" rows="3" placeholder="Write your comment here..."></textarea>
+                        </div>
+                        <button type="button"  id="submitComment" class="btn btn-primary">Submit Comment</button>
+                    </form>
+
+                    <!-- Display Existing Comments -->
+                    @if (@Model.BookComments != null && @Model.BookComments.Count != 0)
+                    {
+                        <div class="mt-4">
+                            <h4>Previous Comments:</h4>
+                            <div class="list-group" id="commentsList">
+                           
+                                @foreach (var comment in @Model.BookComments.OrderByDescending(x=>x.CreatedTime))
+                                {
+                                    <div class="list-group-item">
+                                        <p><strong>@comment.User.UserName:</strong> @comment.Comment</p>
+                                        <small class="text-muted">Posted on: @comment.CreatedTime.ToString("MMMM dd, yyyy hh:mm tt")</small>
+                                    </div>
+                                }
+                            
+                            
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- Create BookClub Modal -->
+<div class="modal fade" id="createBookClubModal" tabindex="-1" aria-labelledby="createBookClubModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createBookClubModalLabel">Create a BookClub</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="bookClubUrl">BookClub URL</label>
+                    <input type="text" id="bookClubUrl" class="form-control" placeholder="Enter BookClub URL" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submitCreateBookClub">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BookClub Details Modal -->
+@* <div class="modal fade" id="bookClubDetailsModal" tabindex="-1" aria-labelledby="bookClubDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookClubDetailsModalLabel">BookClub Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Here is your BookClub URL:</p>
+                <a id="bookClubDetailsUrl" href="@Model.Club?.ClubUrl" target="_blank" class="btn btn-info w-100 py-2 text-uppercase fw-semibold">
+                    Visit The BookClub 
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+ *@
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#submitComment').on('click', function () {
+                var userComment = $('#userComment').val();
+                var bookId = $('#BookId').val();                
+
+                $.ajax({
+                    url: '/Customer/Home/SubmitComment', // Change to the correct action route
+                    method: 'POST',
+                    data: { userComment: userComment, bookId },
+                    success: function (response) {
+                        console.log(response);
+                        // Append the new comment to the comments list using data from the response
+                        $('#commentsList').prepend(`
+                                    <div class="list-group-item">
+                                                <p><strong>${response.ownerName}:</strong> ${response.userComment}</p>
+                                                <small class="text-muted">Posted on: ${response.datePosted}</small>
+                                    </div>
+                                `);
+
+                        // Clear the form fields
+                        $('#ownerName').val('');
+                        $('#userComment').val('');
+                    },
+                    error: function () {
+                        alert("Login first and try again please.");
+
+                    }
+                });
+            });
+            $('#submitCreateBookClub').on('click', function () {
+                var url = $('#bookClubUrl').val();
+                var bookId = $('#BookId').val();
+
+                // Validate URL (optional)
+                if (!url) {
+                    alert('Please enter a URL');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Customer/Home/CreateBookClub', // Change to the correct action route
+                    method: 'POST',
+                    data: { url: url, bookId },
+                    success: function (response) {
+                        // On success, update the button and close the modal
+
+                        $('#createBookClubModal').modal('hide');
+
+                        var clubId = response.clubId;
+                        
+                        // Set the 'asp-route-id' attribute dynamically                        
+                        $('#createBookClubBtn').hide(); // Hide the "Create a BookClub" button
+
+                        $('#bookClubDetailsBtn').show(); // Show the "BookClub Details" button
+                        $('#bookClubDetailsBtn').attr('href', '/Customer/Home/JoinBookClub?clubId=' + clubId);
+                        // Store the URL in the BookClub Details modal
+                        $('#bookClubDetailsUrl').text(url);
+                    },
+                    error: function () {
+                        alert("Login first and try again please.");
+
+                    }
+                });
+            });
+        });
+
+    </script>
+}
