@@ -1,109 +1,195 @@
-﻿@section Style
-{
-    <style>
-        h2, h5 {
-            color: #2b6ba6;
-        }
+﻿<body>
 
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-        }
-
-        table, td {
-            border: 1px solid #ccc;
-        }
-
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        footer {
-            background-color: #2b6ba6;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-            footer a {
-                color: white;
-                text-decoration: none;
-                margin: 0 10px;
-            }
-
-            footer a:hover {
-                text-decoration: underline;
-            }
-
-        .hero-section {
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
-            color: white;
-            min-height: 400px;
-        }
-
-            .hero-section::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(62, 63, 64, 0.5); /* Blue color overlay with 50% opacity */
-                z-index: 2;
-            }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-        }
-    </style>
-}
-
-<section class="hero-section text-center d-flex align-items-center" style="background-image: url('/images/Untitled-design-4.png');">
-    <div>
-        <div class="hero-content" data-aos="fade-up">
-            <h1 class="display-4">Simplify Your Child’s School Meals</h1>
-            <p class="lead">Subscribe to healthy and delicious school meals delivered daily with love and care.</p>
-            @if (User.IsInRole(Roles.Role_Parent))
-            {
-                <a href="#" class="btn btn-primary mx-2">Add Your Children</a>
-                <a href="#" class="btn btn-secondary mx-2">Order Now</a>
-                <a href="#" class="btn btn-success mx-2">Track Your Orders</a>
-            }
-        </div>
-    </div>
-</section>
-
-<!-- About the System -->
-<section class="about-us-section text-center py-5" data-aos="fade-right">
-    <div class="container">
-        <h2>About Our Meal Subscription</h2>
-        <p>Our SchoolMealSubscription system allows parents to easily manage and schedule nutritious meals for their children. With just a few clicks, you can browse weekly menus, select your child’s preferences, and ensure they receive the meals they love—fresh and on time every day.</p>
-    </div>
-</section>
-
-<!-- Trusted By Schools Section -->
-<section id="client-holder" data-aos="fade-up">
-    <div class="container">
-        <div class="row">
-            <div class="inner-content">
-                <div class="logo-wrap">
-                    <div class="grid text-center">
-                        <a href="#"><img style="margin-left: 50px;" src="images/apple_18113435.png" width="70px" height="70px" alt="School Partner 1"></a>
-                        <a href="#"><img style="margin-left: 50px;" src="images/book_13637226.png" width="70px" height="70px" alt="School Partner 2"></a>
-                        <a href="#"><img style="margin-left: 50px;" src="images/groceries_18529864.png" width="70px" height="70px" alt="School Partner 3"></a>
-                        <a href="#"><img style="margin-left: 50px;" src="images/study_535538.png" width="70px" height="70px" alt="School Partner 4"></a>
-                    </div>
-                </div><!--image-holder-->
+    <!-- Hero Section -->
+    <section class="hero-section" style="background-image: url('/images/Untitled-design-4.png');">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="mb-4">Simplify Your Child's School Meals</h1>
+                <p class="mb-5">Subscribe to healthy and delicious school meals delivered daily with love and care.</p>
+                <div class="d-flex flex-wrap justify-content-center">
+                    @if (!User.IsInRole(Roles.Role_Parent))
+                    {
+                        
+                    }
+                    else
+                    {
+                        <a asp-area="Parent" asp-controller="Children" asp-action="Index" class="btn btn-primary hero-btn" data-aos="fade-right" data-aos-delay="200">
+                            <i class="fas fa-plus-circle me-2"></i>Add Your Children
+                        </a>
+                        <a asp-area="Parent" asp-controller="Orders" asp-action="Create" class="btn btn-secondary hero-btn" data-aos="fade-up" data-aos-delay="400">
+                            <i class="fas fa-utensils me-2"></i>Order Now
+                        </a>
+                        <a asp-area="Parent" asp-controller="Orders" asp-action="Index" class="btn btn-success hero-btn" data-aos="fade-left" data-aos-delay="600">
+                            <i class="fas fa-map-marker-alt me-2"></i>Track Your Orders
+                        </a>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="position-absolute bottom-0 w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Our Meal Subscription</h2>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+                    <p class="about-text">Our SchoolMealSubscription system allows parents to easily manage and schedule nutritious meals for their children. With just a few clicks, you can browse weekly menus, select your child's preferences, and ensure they receive the meals they love—fresh and on time every day.</p>
+                    <p class="about-text">We partner with local nutritionists and chefs to create balanced, delicious meals that children actually enjoy eating. Our mission is to make healthy eating easy, convenient, and enjoyable for both parents and children.</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Nutritionist-approved meals</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Allergen information available</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Flexible subscription options</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Easy online management</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+                    <div class="text-center">
+                        <img src="/images/—Pngtree—healthy food_3776802.png" alt="Healthy school meals" class="rounded-lg floating">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>How It Works</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Subscribe & Customize</h3>
+                        <p>Create an account, add your children, and customize their meal preferences. Set dietary restrictions and favorites.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Schedule & Order</h3>
+                        <p>Browse our weekly menus and schedule meals in advance. You can order for the whole month or make changes week by week.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Enjoy & Repeat</h3>
+                        <p>Your child receives fresh, nutritious meals at school. Track what they've eaten and adjust future orders based on feedback.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Trusted By Schools</h2>
+            </div>
+            <div class="partner-logos" data-aos="fade-up" data-aos-delay="200">
+                <div class="partner-logo">
+                    <img src="images/apple_18113435.png" width="100" height="100" alt="School Partner 1">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/book_13637226.png" width="100" height="100" alt="School Partner 2">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/groceries_18529864.png" width="100" height="100" alt="School Partner 3">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/study_535538.png" width="100" height="100" alt="School Partner 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>What Parents Say</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="quotation-mark">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p class="testimonial-text">My son used to skip lunch at school. Now he looks forward to his meals every day! The variety keeps him interested and I love knowing he's eating healthy.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="/images/8-512.png" alt="Parent">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Parent of Alex, Grade 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="quotation-mark">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p class="testimonial-text">The subscription system is so easy to use. I can schedule meals for the entire month, and the flexibility to make last-minute changes is perfect for our busy lifestyle.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="/images/8-512.png" alt="Parent">
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Rodriguez</h4>
+                                <p>Parent of Emma, Grade 5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="testimonial-card">
+                        <div class="quotation-mark">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p class="testimonial-text">As a parent with a child who has allergies, I appreciate how transparent the ingredient information is. The meal options are diverse and my daughter never feels left out.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="/images/8-512.png" alt="Parent">
+                            </div>
+                            <div class="author-info">
+                                <h4>Lisa Patel</h4>
+                                <p>Parent of Maya, Grade 2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="mb-4">Ready to Simplify School Meals?</h2>
+                <p class="mb-5">Join thousands of parents who have made lunchtime stress-free and nutritious for their children.</p>
+                <a href="#" class="btn cta-btn pulse">Start Your Free Trial Today</a>
+            </div>
+        </div>
+    </section>
+</body>
