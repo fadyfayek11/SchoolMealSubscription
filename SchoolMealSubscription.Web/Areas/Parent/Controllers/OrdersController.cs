@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SchoolMealSubscription.Services.Pdf;
+using SchoolMealSubscription.Services.Email;
 
 namespace SchoolMealSubscription.Web.Areas.Parent.Controllers;
 [Area("Parent")]
@@ -18,12 +19,14 @@ public class OrdersController : Microsoft.AspNetCore.Mvc.Controller
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IPdfService _pdfService;
+    private readonly IEmailService _emailService;
 
-    public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IPdfService pdfService)
+    public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IPdfService pdfService, IEmailService emailService)
     {
         _context = context;
         _userManager = userManager;
         _pdfService = pdfService;
+        _emailService = emailService;
     }
 
     // GET: Orders/Create
@@ -78,7 +81,34 @@ public class OrdersController : Microsoft.AspNetCore.Mvc.Controller
             _context.Add(order);
             await _context.SaveChangesAsync();
 
-            // TODO: Send email with invoice
+            var parent = await _userManager.FindByIdAsync(order.ParentId);
+
+            // Generate PDF invoice
+            var pdfBytes = _pdfService.GenerateOrderPdf(order, parent, student);
+
+            // Send email with PDF attachment
+            var emailSubject = $"فاتورة اشتراك برنامج غذائي - {order.InvoiceNumber}";
+            var emailBody = $@"
+                    <h2>مرحباً {parent.FullName},</h2>
+                    <p>شكراً لتسجيلك في برنامجنا الغذائي. تم استلام طلبك بنجاح وسيتم مراجعته من قبل إدارتنا.</p>
+                    <p>تفاصيل الطلب:</p>
+                    <ul>
+                        <li>رقم الفاتورة: {order.InvoiceNumber}</li>
+                        <li>اسم الطالب: {student.Name}</li>
+                        <li>مدة الاشتراك: {order.Duration.ToString()}</li>
+                        <li>المبلغ: {order.Amount} ريال</li>
+                    </ul>
+                    <p>ستجدون الفاتورة مرفقة مع هذا البريد.</p>
+                    <p>لأي استفسار، لا تتردد في التواصل معنا.</p>
+                    <p>مع خالص التقدير,</p>
+                    <p>فريق البرنامج الغذائي</p>";
+
+            await _emailService.SendEmailAsync(
+                parent.Email,
+                emailSubject,
+                emailBody,
+                pdfBytes,
+                $"فاتورة_{order.InvoiceNumber}.pdf");
 
             return RedirectToAction("Details", new { id = order.Id });
         }

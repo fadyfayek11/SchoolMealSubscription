@@ -9,7 +9,9 @@
   <ItemGroup>
     <PackageReference Include="GemBox.Document" Version="35.0.1906" />
     <PackageReference Include="GemBox.Spreadsheet" Version="49.0.1858" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.0" />
+    <PackageReference Include="MimeKit" Version="4.11.0" />
     <PackageReference Include="QuestPDF" Version="2025.4.0" />
   </ItemGroup>
 

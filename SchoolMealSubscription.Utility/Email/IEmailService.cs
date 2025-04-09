@@ -2,5 +2,5 @@
 
 public interface IEmailService
 {
-    Task SendEmailAsync(string toEmail, string subject, string body);
+    Task SendEmailAsync(string email, string subject, string message, byte[]? attachment = null, string attachmentName = null);
 }
