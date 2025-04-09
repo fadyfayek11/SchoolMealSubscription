@@ -1,130 +1,6 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.content-wrapper {
-    flex: 1 0 auto; /* This makes the content area expand to fill available space */
-    min-height: calc(100vh - 300px); /* Minimum height to push footer down */
-    width: 100%;
-    padding-bottom: 30px; /* Space before footer */
-}
-
-.navbar {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.navbar-brand {
-    font-weight: 700;
-    color: #2b6ba6;
-    font-size: 1.5rem;
-}
-
-.notification-alert {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border-color: #bee5eb;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 5px;
-}
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    margin: 20px 0;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #dee2e6;
-}
-
-th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-.footer {
-    flex-shrink: 0; /* Prevents the footer from shrinking */
-    background-color: #1e2a3a;
-    color: white;
-    padding: 50px 0 20px;
-    width: 100%;
-}
-
-.footer-title {
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: white;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-    .footer-links li {
-        margin-bottom: 15px;
-    }
-
-    .footer-links a {
-        color: #a3b8cc;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-        .footer-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-.social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-radius: 50%;
-    margin-right: 10px;
-    transition: all 0.3s ease;
-}
-
-    .social-icons a:hover {
-        background-color: #2b6ba6;
-        transform: translateY(-3px);
-    }
-
-.footer-bottom {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-@media (max-width: 768px) {
-    .content-wrapper {
-        min-height: calc(100vh - 400px);
-    }
-}
-
 :root {
     --primary: #2b6ba6;
     --secondary: #5db4ff;
@@ -223,6 +99,7 @@ body {
     align-items: center;
     overflow: hidden;
 }
+
 
 .hero-content {
     position: relative;
@@ -810,25 +687,8 @@ body {
         text-align: left;
     }
 
-    footer {
-        background-color: #2b6ba6;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-    }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-            footer a:hover {
-                text-decoration: underline;
-            }
+   
+       
 
     /* btn-outline-primary */
 

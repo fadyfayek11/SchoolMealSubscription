@@ -44,10 +44,10 @@ public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 new ApplicationUser
                 {
                     Id = "1",
-                    UserName = "admin@schoool.com",
+                    UserName = "admin@school.com",
                     FullName = "Admin",
                     NormalizedUserName = "ADMIN@SCHOOL.COM",
-                    Email = "admin@schoool.com",
+                    Email = "admin@school.com",
                     NormalizedEmail = "ADMIN@SCHOOL.COM",
                     EmailConfirmed = true,
                     IsAdmin = true,
