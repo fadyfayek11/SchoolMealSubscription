@@ -8,6 +8,7 @@ public class FoodType
     public int FoodTypeId { get; set; }
 
     [Required]
-    [Display(Name = "نوع الطعام")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
+
+    public decimal Price { get; set; }
 }

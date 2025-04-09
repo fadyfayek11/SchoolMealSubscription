@@ -1,0 +1,19 @@
+﻿@model SchoolMealSubscription.Models.Entities.Student
+
+<div class="mb-3">
+    <h6>Subscription Details</h6>
+    <dl class="row">
+        <dt class="col-sm-6">Student:</dt>
+        <dd class="col-sm-6">@Model.Name</dd>
+
+        <dt class="col-sm-6">Duration:</dt>
+        <dd class="col-sm-6">@ViewBag.Duration</dd>
+
+        <dt class="col-sm-6">Daily Price:</dt>
+        <dd class="col-sm-6">@ViewBag.DailyPrice.ToString("C")</dd>
+    </dl>
+</div>
+
+<div class="alert alert-success">
+    <h6 class="mb-0">Total Amount: @ViewBag.TotalAmount.ToString("C")</h6>
+</div>

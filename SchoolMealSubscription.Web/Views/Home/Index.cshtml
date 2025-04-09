@@ -1,0 +1,109 @@
+﻿@section Style
+{
+    <style>
+        h2, h5 {
+            color: #2b6ba6;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        table, td {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        footer {
+            background-color: #2b6ba6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+            footer a {
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+            }
+
+            footer a:hover {
+                text-decoration: underline;
+            }
+
+        .hero-section {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            color: white;
+            min-height: 400px;
+        }
+
+            .hero-section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(62, 63, 64, 0.5); /* Blue color overlay with 50% opacity */
+                z-index: 2;
+            }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+}
+
+<section class="hero-section text-center d-flex align-items-center" style="background-image: url('/images/Untitled-design-4.png');">
+    <div>
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="display-4">Simplify Your Child’s School Meals</h1>
+            <p class="lead">Subscribe to healthy and delicious school meals delivered daily with love and care.</p>
+            @if (User.IsInRole(Roles.Role_Parent))
+            {
+                <a href="#" class="btn btn-primary mx-2">Add Your Children</a>
+                <a href="#" class="btn btn-secondary mx-2">Order Now</a>
+                <a href="#" class="btn btn-success mx-2">Track Your Orders</a>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- About the System -->
+<section class="about-us-section text-center py-5" data-aos="fade-right">
+    <div class="container">
+        <h2>About Our Meal Subscription</h2>
+        <p>Our SchoolMealSubscription system allows parents to easily manage and schedule nutritious meals for their children. With just a few clicks, you can browse weekly menus, select your child’s preferences, and ensure they receive the meals they love—fresh and on time every day.</p>
+    </div>
+</section>
+
+<!-- Trusted By Schools Section -->
+<section id="client-holder" data-aos="fade-up">
+    <div class="container">
+        <div class="row">
+            <div class="inner-content">
+                <div class="logo-wrap">
+                    <div class="grid text-center">
+                        <a href="#"><img style="margin-left: 50px;" src="images/apple_18113435.png" width="70px" height="70px" alt="School Partner 1"></a>
+                        <a href="#"><img style="margin-left: 50px;" src="images/book_13637226.png" width="70px" height="70px" alt="School Partner 2"></a>
+                        <a href="#"><img style="margin-left: 50px;" src="images/groceries_18529864.png" width="70px" height="70px" alt="School Partner 3"></a>
+                        <a href="#"><img style="margin-left: 50px;" src="images/study_535538.png" width="70px" height="70px" alt="School Partner 4"></a>
+                    </div>
+                </div><!--image-holder-->
+            </div>
+        </div>
+    </div>
+</section>

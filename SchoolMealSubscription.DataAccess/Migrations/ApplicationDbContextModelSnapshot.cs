@@ -88,79 +88,6 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -249,6 +176,98 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4e4b1714-61e8-4038-97ca-7278a699d42c",
+                            Email = "admin@schoool.com",
+                            EmailConfirmed = true,
+                            FullName = "Admin",
+                            IsAdmin = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@SCHOOL.COM",
+                            NormalizedUserName = "ADMIN@SCHOOL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOwNLp7LRXOh9nhE8inlWmW1cQ4+1XCF0+9Tzfflw3E4XPskk82k0kfptr001OfWWw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "315b965e-6e51-4097-8716-98ba5f4056ea",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@schoool.com"
+                        });
+                });
+
             modelBuilder.Entity("SchoolMealSubscription.Models.Entities.FoodType", b =>
                 {
                     b.Property<int>("FoodTypeId")
@@ -261,6 +280,9 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("FoodTypeId");
 
                     b.ToTable("FoodTypes");
@@ -269,27 +291,32 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         new
                         {
                             FoodTypeId = 1,
-                            Name = "سلطات"
+                            Name = "سلطات",
+                            Price = 10m
                         },
                         new
                         {
                             FoodTypeId = 2,
-                            Name = "فواكه"
+                            Name = "فواكه",
+                            Price = 20m
                         },
                         new
                         {
                             FoodTypeId = 3,
-                            Name = "منتجات الألبان"
+                            Name = "منتجات الألبان",
+                            Price = 25m
                         },
                         new
                         {
                             FoodTypeId = 4,
-                            Name = "حبوب كاملة"
+                            Name = "حبوب كاملة",
+                            Price = 15m
                         },
                         new
                         {
                             FoodTypeId = 5,
-                            Name = "عصائر طبيعية"
+                            Name = "عصائر طبيعية",
+                            Price = 15m
                         });
                 });
 
@@ -342,26 +369,49 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Parent", b =>
+            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Orders", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AdditionalNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubscriptionDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parents");
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("SchoolMealSubscription.Models.Entities.School", b =>
@@ -412,7 +462,6 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AllergyDetails")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
@@ -429,7 +478,6 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SchoolId")
@@ -469,73 +517,6 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                     b.ToTable("StudentFoodPreferences");
                 });
 
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Subscription", b =>
-                {
-                    b.Property<int>("SubscriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriptionId"));
-
-                    b.Property<string>("AdditionalNotes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InvoiceNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SubscriptionDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("SubscriptionId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Subscriptions");
-                });
-
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e084936-5f75-4ec2-9851-76985b1ebacb",
-                            Email = "admin@schoool.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@SCHOOL.COM",
-                            NormalizedUserName = "ADMIN@SCHOOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBvTRE0Rf/MAYlJJRh1Y+PQQlCmYKqsCXSEz4HlfWgMeo8GWF80G++vEs9ri/q5yqg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eadcbb6c-5f5b-45e5-a947-69a2008c545a",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@schoool.com",
-                            IsAdmin = true
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -547,7 +528,7 @@ namespace SchoolMealSubscription.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -556,7 +537,7 @@ namespace SchoolMealSubscription.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -571,7 +552,7 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -580,22 +561,30 @@ namespace SchoolMealSubscription.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Parent", b =>
+            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Orders", b =>
                 {
-                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", "Parent")
+                        .WithMany("Orders")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("SchoolMealSubscription.Models.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Student", b =>
@@ -606,11 +595,9 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolMealSubscription.Models.Entities.Parent", "Parent")
+                    b.HasOne("SchoolMealSubscription.Models.Entities.ApplicationUser", "Parent")
                         .WithMany("Students")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.HasOne("SchoolMealSubscription.Models.Entities.School", "School")
                         .WithMany()
@@ -644,27 +631,16 @@ namespace SchoolMealSubscription.DataAccess.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Subscription", b =>
+            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("SchoolMealSubscription.Models.Entities.Student", "Student")
-                        .WithMany("Subscriptions")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Orders");
 
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Parent", b =>
-                {
                     b.Navigation("Students");
                 });
 
             modelBuilder.Entity("SchoolMealSubscription.Models.Entities.Student", b =>
                 {
                     b.Navigation("FoodPreferences");
-
-                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,5 +9,5 @@ public class Grade
 
     [Required]
     [Display(Name = "الصف الدراسي")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }

@@ -1,0 +1,49 @@
+﻿@model SchoolMealSubscription.Models.Entities.Student
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Name:</dt>
+            <dd class="col-sm-8">@Model.Name</dd>
+
+            <dt class="col-sm-4">Gender:</dt>
+            <dd class="col-sm-8">@Model.Gender</dd>
+
+            <dt class="col-sm-4">Grade:</dt>
+            <dd class="col-sm-8">@Model.Grade?.Name</dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">School:</dt>
+            <dd class="col-sm-8">@Model.School?.Name</dd>
+
+            <dt class="col-sm-4">Allergies:</dt>
+            <dd class="col-sm-8">
+                @if (Model.HasAllergy)
+                {
+                    @Model.AllergyDetails
+                }
+                else
+                {
+                    <span>None</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+@if (Model.FoodPreferences.Any())
+{
+    <div class="mt-3">
+        <h6>Food Preferences:</h6>
+        <div class="d-flex flex-wrap gap-2">
+            @foreach (var preference in Model.FoodPreferences)
+            {
+                <span class="badge bg-primary">
+                    @preference.FoodType?.Name
+                </span>
+            }
+        </div>
+    </div>
+}

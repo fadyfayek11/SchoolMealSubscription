@@ -6,7 +6,7 @@ using SchoolMealSubscription.Models.Entities;
 
 namespace SchoolMealSubscription.DataAccess.Data;
 
-public sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -14,13 +14,12 @@ public sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
     }
   
     public new DbSet<ApplicationUser> Users { get; set; }
-    public DbSet<Parent> Parents { get; set; }
     public DbSet<Student> Students { get; set; }
     public DbSet<Grade> Grades { get; set; }
     public DbSet<School> Schools { get; set; }
     public DbSet<FoodType> FoodTypes { get; set; }
     public DbSet<StudentFoodPreference> StudentFoodPreferences { get; set; }
-    public DbSet<Subscription> Subscriptions { get; set; }
+    public DbSet<Orders> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,6 +45,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 {
                     Id = "1",
                     UserName = "admin@schoool.com",
+                    FullName = "Admin",
                     NormalizedUserName = "ADMIN@SCHOOL.COM",
                     Email = "admin@schoool.com",
                     NormalizedEmail = "ADMIN@SCHOOL.COM",
@@ -84,11 +84,11 @@ public sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
         // Seed FoodTypes
         modelBuilder.Entity<FoodType>().HasData(
-            new FoodType { FoodTypeId = 1, Name = "سلطات" },
-            new FoodType { FoodTypeId = 2, Name = "فواكه" },
-            new FoodType { FoodTypeId = 3, Name = "منتجات الألبان" },
-            new FoodType { FoodTypeId = 4, Name = "حبوب كاملة" },
-            new FoodType { FoodTypeId = 5, Name = "عصائر طبيعية" }
+            new FoodType { FoodTypeId = 1, Name = "سلطات", Price = 10},
+            new FoodType { FoodTypeId = 2, Name = "فواكه", Price = 20},
+            new FoodType { FoodTypeId = 3, Name = "منتجات الألبان", Price = 25},
+            new FoodType { FoodTypeId = 4, Name = "حبوب كاملة", Price = 15},
+            new FoodType { FoodTypeId = 5, Name = "عصائر طبيعية", Price = 15 }
         );
     }
 }

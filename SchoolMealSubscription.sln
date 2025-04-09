@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMealSubscription.Web"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMealSubscription.DataAccess", "SchoolMealSubscription.DataAccess\SchoolMealSubscription.DataAccess.csproj", "{C1FBA20C-281B-4ADB-A26A-D212427F3F74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMealSubscription.Utility", "SchoolMealSubscription.Utility\SchoolMealSubscription.Utility.csproj", "{913A2B82-DE2D-45A4-9D18-83C656699AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMealSubscription.Services", "SchoolMealSubscription.Utility\SchoolMealSubscription.Services.csproj", "{913A2B82-DE2D-45A4-9D18-83C656699AF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMealSubscription.Models", "SchoolMealSubscription.Models\SchoolMealSubscription.Models.csproj", "{8063740F-E167-4AA3-A10C-C509B65A8F90}"
 EndProject

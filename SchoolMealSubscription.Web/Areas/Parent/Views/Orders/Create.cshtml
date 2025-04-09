@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using SchoolMealSubscription.Models.Enums
+@model SchoolMealSubscription.Models.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Create New Subscription";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="StudentId" class="control-label"></label>
+                    <select asp-for="StudentId" class="form-select"
+                            asp-items="@(new SelectList(Model.Students, "Id", "Name"))">
+                        <option value="">-- Select Student --</option>
+                    </select>
+                    <span asp-validation-for="StudentId" class="text-danger"></span>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Student Information</h5>
+                    </div>
+                    <div class="card-body" id="studentInfo">
+                        <p class="text-muted">Select a student to view details</p>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Duration" class="control-label"></label>
+                    <select asp-for="Duration" class="form-select">
+                        <option value="">-- Select Duration --</option>
+                        <option value="@SubscriptionDuration.OneMonth">One Month</option>
+                        <option value="@SubscriptionDuration.Semester">One Semester</option>
+                        <option value="@SubscriptionDuration.FullYear">One Year</option>
+                    </select>
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PaymentMethod" class="control-label"></label>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="PaymentMethod" value="@PaymentMethod.BankTransfer" id="bankTransfer">
+                            <label class="form-check-label" for="bankTransfer">Bank Transfer</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="PaymentMethod" value="@PaymentMethod.StcPay" id="stcPay">
+                            <label class="form-check-label" for="stcPay">STC Pay</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="PaymentMethod" value="@PaymentMethod.ApplePay" id="applePay">
+                            <label class="form-check-label" for="applePay">Apple Pay</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AdditionalNotes" class="control-label"></label>
+                    <textarea asp-for="AdditionalNotes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div id="orderSummary">
+                        <p class="text-muted">Select a student and duration to see the order summary</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            $('#StudentId').change(function() {
+                var studentId = $(this).val();
+                if (studentId) {
+                    $.get('@Url.Action("GetStudentDetails", "Orders")', { id: studentId }, function(data) {
+                        $('#studentInfo').html(data);
+                    });
+                } else {
+                    $('#studentInfo').html('<p class="text-muted">Select a student to view details</p>');
+                    $('#orderSummary').html('<p class="text-muted">Select a student and duration to see the order summary</p>');
+                }
+            });
+
+            $('#Duration').change(function() {
+                updateOrderSummary();
+            });
+
+            function updateOrderSummary() {
+                var studentId = $('#StudentId').val();
+                var duration = $('#Duration').val();
+
+                if (studentId && duration) {
+                    $.get('@Url.Action("GetOrderSummary", "Orders")',
+                        { studentId: studentId, duration: duration },
+                        function(data) {
+                            $('#orderSummary').html(data);
+                        });
+                }
+            }
+        });
+    </script>
+}

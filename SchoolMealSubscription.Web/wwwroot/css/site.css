@@ -11,14 +11,86 @@ for details on configuring this project to bundle and minify static web assets. 
     box-shadow: 0 -2px;
 }
 
+/* Order status badges */
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
 
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Card styling */
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Form styling */
+.form-select, .form-control {
+    border-radius: 0.25rem;
+}
+
+/* Responsive table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #dee2e6;
+    }
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }
 
+/* Custom styling for student views */
+.card {
+    border-radius: 0.5rem;
+}
 
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.badge {
+    font-size: 0.9em;
+    padding: 0.35em 0.65em;
+}
+
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+        .btn-group .btn {
+            width: 100%;
+        }
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;

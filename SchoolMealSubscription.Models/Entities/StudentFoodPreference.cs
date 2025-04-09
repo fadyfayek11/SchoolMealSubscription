@@ -11,10 +11,10 @@ public class StudentFoodPreference
     public int StudentId { get; set; }
 
     [ForeignKey("StudentId")]
-    public virtual Student Student { get; set; }
+    public virtual Student? Student { get; set; }
 
     public int FoodTypeId { get; set; }
 
     [ForeignKey("FoodTypeId")]
-    public virtual FoodType FoodType { get; set; }
+    public virtual FoodType? FoodType { get; set; }
 }
