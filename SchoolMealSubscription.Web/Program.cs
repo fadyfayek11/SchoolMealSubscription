@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using GemBox.Document;
 using SchoolMealSubscription.Services.Email;
 using SchoolMealSubscription.Models.Entities;
+using SchoolMealSubscription.Services.Pdf;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IPdfService, PdfService>();
 
 //AddIdentity must process before ConfigureApplicationCookie
 builder.Services.ConfigureApplicationCookie(options =>
@@ -25,8 +27,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
-
-ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
 builder.Services.AddRazorPages();
 var app = builder.Build();

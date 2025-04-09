@@ -8,6 +8,7 @@ using SchoolMealSubscription.Services;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using SchoolMealSubscription.Services.Pdf;
 
 namespace SchoolMealSubscription.Web.Areas.Parent.Controllers;
 [Area("Parent")]
@@ -16,11 +17,13 @@ public class OrdersController : Microsoft.AspNetCore.Mvc.Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IPdfService _pdfService;
 
-    public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+    public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IPdfService pdfService)
     {
         _context = context;
         _userManager = userManager;
+        _pdfService = pdfService;
     }
 
     // GET: Orders/Create
@@ -191,5 +194,27 @@ public class OrdersController : Microsoft.AspNetCore.Mvc.Controller
         ViewBag.TotalAmount = totalAmount;
 
         return PartialView("_OrderSummaryPartial", student);
+    }
+    
+    public async Task<IActionResult> DownloadInvoice(int id)
+    {
+        var order = await _context.Orders
+            .Include(o => o.Parent)
+            .Include(s => s.Student)
+            .ThenInclude(o => o.FoodPreferences)
+            .ThenInclude(o => o.FoodType)
+            .Include(s => s.Student)
+            .ThenInclude(s => s.School)
+            .Include(s => s.Student)
+            .ThenInclude(s => s.Grade)
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (order == null)
+        {
+            return NotFound();
+        }
+
+        var pdfBytes = _pdfService.GenerateOrderPdf(order, order.Parent, order.Student);
+        return File(pdfBytes, "application/pdf", $"Invoice_{order.InvoiceNumber}.pdf");
     }
 }

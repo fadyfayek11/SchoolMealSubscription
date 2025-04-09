@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GemBox.Document" Version="35.0.1906" />
+    <PackageReference Include="GemBox.Spreadsheet" Version="49.0.1858" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.0" />
+    <PackageReference Include="QuestPDF" Version="2025.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolMealSubscription.Models\SchoolMealSubscription.Models.csproj" />
   </ItemGroup>
 
 </Project>
