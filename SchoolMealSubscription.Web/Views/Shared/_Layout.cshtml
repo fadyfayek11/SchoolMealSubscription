@@ -35,9 +35,15 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (!User.IsInRole(Roles.Role_Parent))
+                        @if (User.IsInRole(Roles.Role_Admin))
                         {
-                        
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">Orders</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">Students</a>
+                            </li>
                         }
                         else
                         { 

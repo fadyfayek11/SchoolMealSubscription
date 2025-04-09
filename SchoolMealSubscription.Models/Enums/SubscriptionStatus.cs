@@ -4,12 +4,12 @@ namespace SchoolMealSubscription.Models.Enums;
 
 public enum SubscriptionStatus
 {
-    [Display(Name = "قيد الانتظار")]
+    [Display(Name = "Pending")]
     Pending = 1,
 
-    [Display(Name = "مدفوع")]
+    [Display(Name = "Paid")]
     Paid = 2,
 
-    [Display(Name = "ملغي")]
+    [Display(Name = "Cancelled")]
     Cancelled = 3
 }

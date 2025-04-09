@@ -1,4 +1,5 @@
-﻿@model SchoolMealSubscription.Models.Entities.Student
+﻿@using System.Globalization
+@model SchoolMealSubscription.Models.Entities.Student
 
 <div class="mb-3">
     <h6>Subscription Details</h6>
@@ -10,10 +11,10 @@
         <dd class="col-sm-6">@ViewBag.Duration</dd>
 
         <dt class="col-sm-6">Daily Price:</dt>
-        <dd class="col-sm-6">@ViewBag.DailyPrice.ToString("C")</dd>
+        <dd class="col-sm-6">@ViewBag.DailyPrice.ToString("C", CultureInfo.CreateSpecificCulture("ar-SA"))</dd>
     </dl>
 </div>
 
 <div class="alert alert-success">
-    <h6 class="mb-0">Total Amount: @ViewBag.TotalAmount.ToString("C")</h6>
+    <h6 class="mb-0">Total Amount: @ViewBag.TotalAmount.ToString("C", CultureInfo.CreateSpecificCulture("ar-SA"))</h6>
 </div>

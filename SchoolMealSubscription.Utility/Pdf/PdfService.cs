@@ -3,6 +3,7 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SchoolMealSubscription.Models.Entities;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -177,8 +178,8 @@ public class PdfService : IPdfService
 
                                     foreach (var pref in order.Student.FoodPreferences)
                                     {
-                                        var prefText = $"• {pref.FoodType?.Name}";
-                                        table.Cell().AlignRight().PaddingBottom(5).Text(prefText);
+                                        table.Cell().AlignLeft().Text(pref.FoodType?.Price.ToString("C",CultureInfo.CreateSpecificCulture("ar-SA"))).Bold();
+                                        table.Cell().AlignRight().Text(pref.FoodType?.Name).Bold();
                                     }
                                 });
                         }
